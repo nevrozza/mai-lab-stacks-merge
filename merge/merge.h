@@ -6,6 +6,7 @@
 #define MERGE_H
 #include "../stack/stack.h"
 
-// deepcopy
 stack *stack_clone(stack *s);
+
+stack *merge_sorted_stacks(stack *s1, stack *s2);
 #endif //MERGE_H
