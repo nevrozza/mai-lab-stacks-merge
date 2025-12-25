@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 void error(char msg[]) {
-    fprintf(stderr, "%s\n", msg);
+    fprintf(stderr, "%s", msg);
     exit(EXIT_FAILURE);
 }
 

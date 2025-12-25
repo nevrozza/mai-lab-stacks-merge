@@ -1,5 +1,6 @@
 #include "merge.h"
 
+#include <stdio.h>
 #include <time.h>
 
 // deepcopy
@@ -73,9 +74,7 @@ void merge_sort_stack(stack *s) {
 
     // [1, 2, 3, 4] <- вершина
     // [1, 2, 3, 4] -> [4, 3, 2, 1]
-    for (size_t i = 0; i < n; i++) {
-        stack_push(temp, stack_pop(s));
-    }
+    while (!stack_is_empty(s)) { stack_push(temp, stack_pop(s)); }
 
     // [4, 3, 2, 1] <- вершина
     // left=[1, 2] right=[3, 4]
@@ -91,13 +90,13 @@ void merge_sort_stack(stack *s) {
     merge_sort_stack(left);
     merge_sort_stack(right);
 
-
     stack *sorted = merge_sorted_stacks(left, right);
 
     stack *tmp = stack_create();
     while (!stack_is_empty(s)) stack_pop(s);
     while (!stack_is_empty(sorted)) { stack_push(tmp, stack_pop(sorted)); }
-    while (!stack_is_empty(tmp)) { stack_push(s, stack_pop(sorted)); }
+    while (!stack_is_empty(tmp)) { stack_push(s, stack_pop(tmp)); }
+
 
     stack_destroy(left);
     stack_destroy(right);

@@ -78,7 +78,7 @@ void stack_print(const stack *s) {
     printf("[");
     for (size_t i = 0; i < s->count; i++) {
         if (i > 0) printf(", ");
-        printf("(%d)", s->data[i].value); // s->data[i].key,
+        printf("%d", s->data[i].value);
     }
     printf("]  <-- вершина\n");
 }
