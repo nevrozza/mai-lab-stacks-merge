@@ -1,17 +1,10 @@
 #include "stack.h"
+#include "../utils/utils.h"
 
 #include <stdio.h>
-
-#include "../utils/utils.h"
 #include <stdlib.h>
 
 #define INITIAL_CAPACITY 4
-
-struct stack {
-    data_type *data;
-    size_t capacity;
-    size_t count;
-};
 
 stack *stack_create(void) {
     stack *s = malloc(sizeof(stack));
