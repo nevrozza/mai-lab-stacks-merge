@@ -12,11 +12,7 @@ typedef struct {
     int value;
 } data_type;
 
-typedef struct stack {
-    data_type *data;
-    size_t capacity;
-    size_t count;
-} stack;
+typedef struct stack stack;
 
 
 stack *stack_create(void);

@@ -6,6 +6,12 @@
 
 #define INITIAL_CAPACITY 4
 
+struct stack {
+    data_type *data;
+    size_t capacity;
+    size_t count;
+};
+
 stack *stack_create(void) {
     stack *s = malloc(sizeof(stack));
     data_type *data = malloc(INITIAL_CAPACITY * sizeof(data_type));

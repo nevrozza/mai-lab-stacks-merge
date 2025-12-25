@@ -1,5 +1,7 @@
 #include "merge.h"
 
+#include <time.h>
+
 // deepcopy
 stack *stack_clone(stack *s) {
     stack *temp = stack_create();
@@ -54,4 +56,51 @@ stack *merge_sorted_stacks(stack *s1, stack *s2) {
     stack_destroy(rev_b);
 
     return result;
+}
+
+// sry for inplace =/
+void merge_sort_stack(stack *s) {
+    if (stack_size(s) <= 1) {
+        return;
+    }
+
+    size_t n = stack_size(s);
+    size_t mid = n / 2;
+
+    stack *left = stack_create();
+    stack *right = stack_create();
+    stack *temp = stack_create();
+
+    // [1, 2, 3, 4] <- вершина
+    // [1, 2, 3, 4] -> [4, 3, 2, 1]
+    for (size_t i = 0; i < n; i++) {
+        stack_push(temp, stack_pop(s));
+    }
+
+    // [4, 3, 2, 1] <- вершина
+    // left=[1, 2] right=[3, 4]
+    for (size_t i = 0; i < mid; i++) {
+        stack_push(left, stack_pop(temp));
+    }
+    for (size_t i = mid; i < n; i++) {
+        stack_push(right, stack_pop(temp));
+    }
+    stack_destroy(temp);
+
+
+    merge_sort_stack(left);
+    merge_sort_stack(right);
+
+
+    stack *sorted = merge_sorted_stacks(left, right);
+
+    stack *tmp = stack_create();
+    while (!stack_is_empty(s)) stack_pop(s);
+    while (!stack_is_empty(sorted)) { stack_push(tmp, stack_pop(sorted)); }
+    while (!stack_is_empty(tmp)) { stack_push(s, stack_pop(sorted)); }
+
+    stack_destroy(left);
+    stack_destroy(right);
+    stack_destroy(sorted);
+    stack_destroy(tmp);
 }
