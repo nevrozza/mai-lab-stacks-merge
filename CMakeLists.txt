@@ -7,4 +7,6 @@ add_executable(mai_lab_stacks_merge main.c
         stack/stack.h
         merge/merge.h
         stack/stack.c
-        merge/merge.c)
+        merge/merge.c
+        utils/utils.h
+        utils/utils.c)

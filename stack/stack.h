@@ -8,21 +8,26 @@
 #include <stddef.h>
 
 typedef struct {
-    int key;
+    // int key;
     int value;
 } data_type;
 
 typedef struct stack stack;
 
-stack* stack_create(void);
+stack *stack_create(void);
 
-bool stack_is_empty(stack* s);
-size_t stack_size(stack* s);
+void stack_destroy(stack *s);
 
-void stack_push(stack* s, data_type item);
-data_type stack_pop(stack* s);
-data_type stack_peek(stack* s);
+bool stack_is_empty(const stack *s);
 
-void stack_print(const stack* s);
+size_t stack_size(const stack *s);
+
+void stack_push(stack *s, data_type item);
+
+data_type stack_pop(stack *s);
+
+data_type stack_peek(const stack *s);
+
+void stack_print(const stack *s);
 
 #endif //STACK_H
