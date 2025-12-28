@@ -3,41 +3,24 @@
 #include <stdio.h>
 #include <time.h>
 
-// deepcopy
-stack *stack_clone(stack *s) {
-    stack *temp = stack_create();
-    stack *clone = stack_create();
-
-    while (!stack_is_empty(s)) { stack_push(temp, stack_pop(s)); }
-    while (!stack_is_empty(temp)) {
-        const data_type data = stack_pop(temp);
-        stack_push(clone, data);
-        stack_push(s, data);
-    }
-
-    stack_destroy(temp);
-    return clone;
-}
 
 /*
  * Attention!!
  * Рассматриваются стэки отсортированные так, что
  * [1, 2, 3] <- вершина
  */
-stack *merge_sorted_stacks(stack *s1, stack *s2) {
-    stack *a = stack_clone(s1);
-    stack *b = stack_clone(s2);
+stack *merge_sorted_stacks(stack* s1, stack* s2) {
+    // Используются указатели, чтобы сохранить `инкапсуляция` stack'а
+    // До этого была inplace сортировка массивов, поэтому здесь s1 и s2 можно редактировать (ТОЛЬКО В ЭТОМ КОНТЕКСТЕ!!)
 
     stack *rev_a = stack_create();
     stack *rev_b = stack_create();
 
     // Переворот нужен для сохранения порядка элементов в результате
     // [3, 2, 1]
-    while (!stack_is_empty(a)) stack_push(rev_a, stack_pop(a));
-    while (!stack_is_empty(b)) stack_push(rev_b, stack_pop(b));
+    while (!stack_is_empty(s1)) stack_push(rev_a, stack_pop(s1));
+    while (!stack_is_empty(s2)) stack_push(rev_b, stack_pop(s2));
 
-    stack_destroy(a);
-    stack_destroy(b);
 
     stack *result = stack_create();
     while (!stack_is_empty(rev_a) && !stack_is_empty(rev_b)) {
